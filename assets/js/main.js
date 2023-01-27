@@ -1,4 +1,5 @@
 import bulmaCollapsible from "./bulmaCollapsible.js";
+import bulmaModal from "./bulmaModal.js";
 
 (function() {
     const FETCH_URL = "http://localhost:3000/recipes";
@@ -8,7 +9,7 @@ import bulmaCollapsible from "./bulmaCollapsible.js";
 
     let recipes;
 
-    async function fetchData() {
+    async function getRecipes() {
         return fetch(FETCH_URL)
             .then((res) => res.json());
     }
@@ -24,14 +25,15 @@ import bulmaCollapsible from "./bulmaCollapsible.js";
         }
         list += "<li>";
         let ingredientsText = ingredients.map(
-            (ingredient) => `${ingredient.name} - ${ingredient.quantity}${ingredient.unit}`
+            (ingredient) =>
+                ingredient.name + (ingredient.quantity ? ` - ${ingredient.quantity}` : "")
         );
         list += ingredientsText.join("</li><li>");
         return list + "</li>";
     }
 
     function recipeCardTemplate(recipe) {
-        return  `
+        return `
         <header class="card-header">
             <p class="card-header-title">
                 ${recipe.name}
@@ -50,7 +52,7 @@ import bulmaCollapsible from "./bulmaCollapsible.js";
                     </p>
                 </div>
             </div>
-            <p>${recipe.description}</p>
+            <p class="mb-2">${recipe.description}</p>
             <hr class="mt-auto">
             <a class="has-text-info" href="#ingredients-collapsible${recipe.id}" data-action="collapse">
                 <div class="is-flex is-align-items-center">
@@ -74,7 +76,7 @@ import bulmaCollapsible from "./bulmaCollapsible.js";
         let column = _ce("div");
         let card = _ce("div");
         card.innerHTML = recipeCardTemplate(recipe);
-        card.classList.add("card", "is-flex", "is-flex-direction-column");
+        card.classList.add("card", "is-flex", "is-flex-direction-column", "is-flex-grow-1");
         column.appendChild(card);
         column.classList.add("column", "is-one-third-tablet", "is-one-quarter-desktop", "is-one-fifth-widescreen", "is-flex");
         return column;
@@ -82,19 +84,68 @@ import bulmaCollapsible from "./bulmaCollapsible.js";
 
     function displayRecipes(recipes) {
         let recipesContainer = _id("recipes");
+        recipesContainer.innerHTML = "";
         for (let recipe of recipes) {
             recipesContainer.appendChild(newRecipeCard(recipe));
         }
+        bulmaCollapsible.attach('.is-collapsible');
+    }
+
+    function newRecipe(name, link, servings, description, ingredientsList) {
+        let ingredients = ingredientsList.split(/[\r\n]+/).map((el) => {
+            let ingredient = {};
+            let values = el.split(",");
+            ingredient.name = values[0].trim();
+            if (values.length > 1) {
+                ingredient.quantity = values[1].trim();
+            }
+            return ingredient;
+        });
+        return {
+            name,
+            servings,
+            description,
+            link,
+            ingredients
+        };
+    }
+
+    function addRecipe() {
+        let name = _id("createName").value;
+        let link = _id("createLink").value;
+        let servings = _id("createServings").value;
+        let desc = _id("createDesc").value;
+        let ingredients = _id("createIngredients").value;
+        let recipe = newRecipe(name, link, servings, desc, ingredients);
+        fetch(FETCH_URL, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(recipe)
+        }).then((res) => res.json())
+            .then((recipe) => recipes.push(recipe))
+            .then(() => {
+                _id("createForm").reset();
+                displayRecipes(recipes);
+            })
+            .catch(console.error);
     }
 
     const init = async function() {
         let loaded = false;
-        fetchData()
+        getRecipes()
             .then((data) => {
                 recipes = data;
                 displayRecipes(recipes);
                 loaded = true;
-                bulmaCollapsible.attach('.is-collapsible');
+            })
+            .then(() => {
+                bulmaModal();
+                _id("createForm").addEventListener("submit", (evt) => {
+                    evt.preventDefault();
+                    addRecipe();
+                });
             })
             .catch((err) => {
                 console.error(err);
@@ -102,82 +153,11 @@ import bulmaCollapsible from "./bulmaCollapsible.js";
             .finally(() => {
                 setTimeout(() => {
                     _id("loading").classList.add("is-hidden");
-                    let display = loaded ? "recipes" : "error";
+                    let display = loaded ? "loaded" : "error";
                     _id(display).classList.remove("is-hidden");
                 }, 400);
             });
     }
 
     document.addEventListener("DOMContentLoaded", init);
-/*
-    function getFlagImg(countryCode) {
-        return `<img src="https://flagcdn.com/24x18/${countryCode}.png" loading="lazy">`;
-    }
-
-    function getTitleContent(agent, unit, year) {
-        return `Pays les plus polluants pour le ${agent} (${unit}) en ${year}`;
-    }
-
-    function newTableRow(countryData) {
-        let tr = _ce("tr");
-        let [
-            tdFlag,
-            tdName,
-            tdValue,
-            tdPercent
-        ] = Array(4).fill().map(() => _ce("td"));
-        tdFlag.innerHTML = getFlagImg(countryData.code);
-        tdName.innerHTML = countryData.nom;
-        tdValue.innerHTML = countryData.valeur;
-        tdPercent.innerHTML = countryData.pourcentage;
-        for (let td of [tdFlag, tdName, tdValue, tdPercent]) {
-            tr.appendChild(td);
-        }
-        return tr;
-    }
-
-    function displayCountryData(countryData) {
-        let tBody = _id("tableBody");
-        for (let country of countryData) {
-            let tr = newTableRow(country);
-            tBody.appendChild(tr);
-        }
-    }
-
-    function validateInputs(minValue, maxValue) {
-        let errors = [];
-        if (minValue >= maxValue) {
-            errors.push("La valeur maximum doit être supérieure à la valeur minimum");
-        }
-        if (errors.length) {
-            throw { validationErrors: errors };
-        }
-    }
-
-    function displayValidationErrors(validationErrors) {
-        _id("errorsMax").innerHTML = "<span>" + validationErrors.join("</span><br><span>") + "</span>";
-        _id("max").classList.add("is-danger");
-    }
-
-    function filterData() {
-        let minInput = _id("min");
-        let maxInput = _id("max");
-        minInput.classList.remove("is-danger")
-        maxInput.classList.remove("is-danger")
-        _id("errorsMax").innerHTML = "";
-        let minValue = minInput.value || 0;
-        let maxValue = maxInput.value || Number.MAX_VALUE;
-        try {
-            validateInputs(minValue, maxValue);
-        } catch(err) {
-            displayValidationErrors(err.validationErrors);
-            return;
-        }
-        let filtered = jsonData.pays.filter(
-            (el) => minValue <= el.pourcentage && el.pourcentage <= maxValue
-        );
-        _id("tableBody").innerHTML = "";
-        displayCountryData(filtered);
-    }
-*/
 })();

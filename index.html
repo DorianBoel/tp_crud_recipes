@@ -14,8 +14,8 @@
 </head>
 
 <body>
-    <div class="content container is-fluid mt-3">
-        <h1 class="has-text-centered mt-4 mb-6">&#127869;&#65039; Liste de recettes</h1>
+    <div class="container is-fluid mt-3">
+        <h1 class="is-size-1 has-text-centered mt-4 mb-6">&#127869;&#65039; Liste de recettes &#127869;&#65039; </h1>
 
         <!-- Loader -->
         <div id="loading" class="is-flex is-justify-content-center is-align-items-center">
@@ -33,12 +33,69 @@
         </div>
 
         <!--Content-->
-        <section id="recipes" class="is-hidden columns is-mobile is-justify-content-center is-flex-wrap-wrap"></section>
+        <div id="loaded" class="is-hidden">
+            <div class="is-flex is-justify-content-end">
+                <button class="button is-success js-modal-trigger mb-4" data-target="createModal">
+                    Ajouter&nbsp;<i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <section id="recipes" class="columns is-mobile is-justify-content-center is-flex-wrap-wrap"></section>
+        </div>
+
+        <!-- Creation Modal -->
+        <div id="createModal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Nouvelle recette</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <form id="createForm">
+                    <section class="modal-card-body">
+                        <div class="field">
+                            <label class="label" for="createName">Nom</label>
+                            <div class="control">
+                                <input id="createName" class="input" type="text" placeholder="Nom de la recette" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="createLink">Image</label>
+                            <div class="control">
+                                <input id="createLink" class="input" type="text" placeholder="Lien vers l'image">
+                            </div>
+                        </div>
+                        <div class="field is-horizontal has-addons field-gap is-align-items-center mt-5">
+                            <label class="label mb-0" for="createServings">Pour</label>
+                            <div class="control">
+                                <input id="createServings" class="input is-small" type="number" min="1" value="4" required>
+                            </div>
+                            <label class="label" for="createServings">personnes</label>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="createDesc">Description (200 caractères max)</label>
+                            <div class="control">
+                                <textarea id="createDesc" class="textarea" placeholder="Description de la recette" maxlength="200"></textarea>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="createIngredients">Ingrédients (1 par ligne)</label>
+                            <div class="control">
+                                <textarea id="createIngredients" class="textarea" placeholder="Oignon, 250 g&#10;Boeuf, 1 kg&#10;Sel&#10;Poivre"></textarea>
+                            </div>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot is-justify-content-end">
+                        <button class="button" aria-label="close">Annuler</button>
+                        <button id="createSubmit" class="button is-primary">Valider</button>
+                    </footer>
+                </form>
+            </div>
+        </div>
 
     </div>
 
     <!-- Scripts -->
-    <script type="module" src="./main.js"></script>
+    <script type="module" src="./assets/js/main.js"></script>
 </body>
 
 </html>

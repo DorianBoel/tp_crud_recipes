@@ -10329,6 +10329,17 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   list-style: square;
 }
 
+.modal-content, .modal-card {
+  width: 95%;
+}
+.modal-content form, .modal-card form {
+  overflow: scroll;
+}
+
+.field.has-addons.field-gap {
+  gap: 0.5rem;
+}
+
 a[data-action=collapse].is-active span.icon {
   transition: transform 0.15s;
   transform: rotate(90deg);

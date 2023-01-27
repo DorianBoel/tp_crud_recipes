@@ -3,6 +3,7 @@
 }
 
 .card-content {
+
     hr {
         margin: .75rem .75rem .75rem 0;
     }
@@ -10,6 +11,18 @@
     ul {
         list-style: square;
     }
+}
+
+.modal-content, .modal-card {
+    width: 95%;
+
+    form {
+        overflow: scroll;
+    }
+}
+
+.field.has-addons.field-gap {
+    gap: .5rem;
 }
 
 @mixin collapse-icon($angle: 0deg) {

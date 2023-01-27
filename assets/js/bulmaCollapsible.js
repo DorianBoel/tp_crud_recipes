@@ -143,9 +143,9 @@ const BooleanParse = function (val) {
 };
 
 
- const uuid = (prefix = '') => prefix + ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+const uuid = (prefix = '') => prefix + ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
 
- const ready = handler => {
+const ready = handler => {
 	if (typeof document !== 'undefined') {
 		if (/complete|loaded|interactive/.test(document.readyState) && document.body) {
 			handler();
@@ -157,7 +157,7 @@ const BooleanParse = function (val) {
 	}
 };
 
- const detectSupportsPassive = () => {
+const detectSupportsPassive = () => {
 	let supportsPassive = false;
 
 	if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
@@ -177,7 +177,7 @@ const BooleanParse = function (val) {
 };
 
 
- const whichTransitionEvent = () => {
+const whichTransitionEvent = () => {
 	const el = document.createElement('fakeelement');
 
 	var transitions = {
@@ -225,7 +225,7 @@ const querySelector = (selector, node) => {
 		return selector[0];
 	}
 };
- const querySelectorAll = (selector, node) => {
+const querySelectorAll = (selector, node) => {
 	if (isFunction(selector)) {
 		return selector(node ? node : (typeof document !== 'undefined' ? document : null));
 	}
@@ -253,7 +253,7 @@ const querySelector = (selector, node) => {
 	return null;
 };
 
- const optionsFromDataset = (node, defaultOptions = {}) => {
+const optionsFromDataset = (node, defaultOptions = {}) => {
 	if (isNode(node)) {
 		return node.dataset ? Object.keys(node.dataset)
 			.filter(key => Object.keys(defaultOptions).includes(key))
