@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+    <title>TP CRUD Recipes</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <!--<link rel="stylesheet" href="https://unpkg.com/bulmaswatch/nuclear/bulmaswatch.min.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+</head>
+
+<body>
+    <div class="content container is-fluid mt-3">
+        <h1 class="has-text-centered mt-4 mb-6">&#127869;&#65039; Liste de recettes</h1>
+
+        <!-- Loader -->
+        <div id="loading" class="is-flex is-justify-content-center is-align-items-center">
+            <span class="loader mr-3"></span>
+            <span class="is-size-5">Chargement en cours...</span>
+        </div>
+
+        <!-- Error -->
+        <div id="error" class="is-hidden columns is-centered">
+            <article class="message is-danger is-three-quarters">
+                <div class="message-body">
+                    Une erreur est survenue lors du chargement
+                </div>
+            </article>
+        </div>
+
+        <!--Content-->
+        <section id="recipes" class="is-hidden columns is-mobile is-justify-content-center is-flex-wrap-wrap"></section>
+
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="./main.js"></script>
+</body>
+
+</html>
