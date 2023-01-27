@@ -2,13 +2,17 @@
     object-fit: cover;
 }
 
+.card-header {
+    max-height: 42px;
+}
+
 .card-content {
 
     hr {
         margin: .75rem .75rem .75rem 0;
     }
 
-    ul {
+    .content ul {
         list-style: square;
     }
 }

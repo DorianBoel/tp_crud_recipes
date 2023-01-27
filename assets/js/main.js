@@ -33,6 +33,58 @@ import bulmaModal from "./bulmaModal.js";
         return list + "</li>";
     }
 
+    function editModalTemplate(id) {
+        return `
+            <div id="editModal${id}" class="modal">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Modification</p>
+                        <button class="delete" aria-label="close"></button>
+                    </header>
+                    <form id="editForm${id}">
+                        <section class="modal-card-body">
+                            <div class="field">
+                                <label class="label" for="editName${id}">Nom</label>
+                                <div class="control">
+                                    <input id="editName${id}" class="input" type="text" placeholder="Nom de la recette" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label" for="editLink${id}">Image</label>
+                                <div class="control">
+                                    <input id="editLink${id}" class="input" type="text" placeholder="Lien vers l'image">
+                                </div>
+                            </div>
+                            <div class="field is-horizontal has-addons field-gap is-align-items-center mt-5">
+                                <label class="label mb-0" for="editServings${id}">Pour</label>
+                                <div class="control">
+                                    <input id="editServings${id}" class="input is-small" type="number" min="1" value="4" required>
+                                </div>
+                                <label class="label" for="editServings${id}">personnes</label>
+                            </div>
+                            <div class="field">
+                                <label class="label" for="editDesc${id}">Description (200 caractères max)</label>
+                                <div class="control">
+                                    <textarea id="editDesc${id}" class="textarea" placeholder="Description de la recette" maxlength="200"></textarea>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label" for="editIngredients${id}">Ingrédients (1 par ligne)</label>
+                                <div class="control">
+                                    <textarea id="editIngredients${id}" class="textarea" placeholder="Oignon, 250 g&#10;Boeuf, 1 kg&#10;Sel&#10;Poivre"></textarea>
+                                </div>
+                            </div>
+                        </section>
+                        <footer class="modal-card-foot is-justify-content-end">
+                            <button class="button" aria-label="close">Annuler</button>
+                            <button id="editSubmit${id}" class="button is-success">Valider</button>
+                        </footer>
+                    </form>
+                </div>
+            </div>`;
+    }
+
     function deleteModalTemplate(id) {
         return `
             <div id="deleteModal${id}" class="modal">
@@ -55,11 +107,11 @@ import bulmaModal from "./bulmaModal.js";
 
     function recipeCardTemplate(recipe) {
         return `
-            <header class="card-header is-align-items-center">
+            <header class="card-header is-align-items-center is-clipped">
                 <p class="card-header-title">
                     ${recipe.name}
                 </p>
-                <button class="card-header-icon button is-link is-inverted js-modal-trigger" data-target="editModal${recipe.id}">
+                <button class="card-header-icon button is-info is-inverted js-modal-trigger" data-target="editModal${recipe.id}">
                     <span class="icon">
                         <i class="fas fa-pen-to-square" aria-hidden="true"></i>
                     </span>
@@ -95,14 +147,15 @@ import bulmaModal from "./bulmaModal.js";
                         </span>
                     </div>
                 </a>
-                <div id="ingredientsCollapsible${recipe.id}" class="is-collapsible mt-3">
+                <div id="ingredientsCollapsible${recipe.id}" class="content is-collapsible mt-3">
                     <ul class="mt-0">
                         ${getIngredientList(recipe.ingredients)}
                     </ul>
                 </div>
             </div>
+            ${editModalTemplate(recipe.id)}
             ${deleteModalTemplate(recipe.id)}
-            `;
+        `;
     }
 
     function newRecipeCard(recipe) {

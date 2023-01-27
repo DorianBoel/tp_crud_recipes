@@ -10322,10 +10322,14 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   object-fit: cover;
 }
 
+.card-header {
+  max-height: 42px;
+}
+
 .card-content hr {
   margin: 0.75rem 0.75rem 0.75rem 0;
 }
-.card-content ul {
+.card-content .content ul {
   list-style: square;
 }
 
