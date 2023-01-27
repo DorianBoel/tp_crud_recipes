@@ -1,0 +1,52 @@
+{
+    "recipes": [
+        {
+            "id": 1,
+            "name": "Poulet coco",
+            "servings": 4,
+            "description": "Poulet au lait de Coco avec du riz et gambas.",
+            "link": "https://www.jocooks.com/wp-content/uploads/2019/10/coconut-chicken-curry-1-10.jpg",
+            "ingredients": [
+                {
+                    "name": "Poulet",
+                    "quantity": 1,
+                    "unit": "kg"
+                },
+                {
+                    "name": "Lait de coco",
+                    "quantity": 250,
+                    "unit": "ml"
+                },
+                {
+                    "name": "Riz",
+                    "quantity": 1,
+                    "unit": "kg"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Poulet au gingembre",
+            "servings": 4,
+            "description": "Poulet au gingembre avec du riz et gambas. Poulet au gingembre avec du riz et gambas.",
+            "link": "https://www.toutlevin.com/img/3cfcc4d33781a6cfc5763597bbfd9c8b004740003000-1920.jpg",
+            "ingredients": [
+                {
+                    "name": "Poulet",
+                    "quantity": 1,
+                    "unit": "kg"
+                },
+                {
+                    "name": "Gingembre",
+                    "quantity": 250,
+                    "unit": "g"
+                },
+                {
+                    "name": "Riz",
+                    "quantity": 1,
+                    "unit": "kg"
+                }
+            ]
+        }
+    ]
+}
