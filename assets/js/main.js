@@ -6,18 +6,8 @@ import bulmaModal from "./bulmaModal.js";
 
     const _id = (id) => document.getElementById(id);
     const _ce = (tag) => document.createElement(tag);
-    const _qsa = (selector) => document.querySelectorAll(selector);
 
     let recipes;
-
-    async function getRecipes() {
-        return fetch(FETCH_URL)
-            .then((res) => res.json());
-    }
-
-    function getServingsInfo(num) {
-        return `<span class="has-text-weight-bold">${num}</span> personne${num > 1 ? "s" : ""}`;
-    }
 
     function getIngredientList(ingredients) {
         let list = "";
@@ -33,52 +23,55 @@ import bulmaModal from "./bulmaModal.js";
         return list + "</li>";
     }
 
-    function editModalTemplate(id) {
+    function editModalTemplate(recipe) {
+        let ingredients = recipe.ingredients
+            .map((el) => el.name + (el.quantity ? `, ${el.quantity}` : ""))
+            .join("\n");
         return `
-            <div id="editModal${id}" class="modal">
+            <div id="editModal${recipe.id}" class="modal">
                 <div class="modal-background"></div>
                 <div class="modal-card">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Modification</p>
                         <button class="delete" aria-label="close"></button>
                     </header>
-                    <form id="editForm${id}">
+                    <form id="editForm${recipe.id}">
                         <section class="modal-card-body">
                             <div class="field">
-                                <label class="label" for="editName${id}">Nom</label>
+                                <label class="label" for="editName${recipe.id}">Nom</label>
                                 <div class="control">
-                                    <input id="editName${id}" class="input" type="text" placeholder="Nom de la recette" required>
+                                    <input id="editName${recipe.id}" class="input" type="text" placeholder="Nom de la recette"required value="${recipe.name}">
                                 </div>
                             </div>
                             <div class="field">
-                                <label class="label" for="editLink${id}">Image</label>
+                                <label class="label" for="editLink${recipe.id}">Image</label>
                                 <div class="control">
-                                    <input id="editLink${id}" class="input" type="text" placeholder="Lien vers l'image">
+                                    <input id="editLink${recipe.id}" class="input" type="text" placeholder="Lien vers l'image" value="${recipe.link}">
                                 </div>
                             </div>
                             <div class="field is-horizontal has-addons field-gap is-align-items-center mt-5">
-                                <label class="label mb-0" for="editServings${id}">Pour</label>
+                                <label class="label mb-0" for="editServings${recipe.id}">Pour</label>
                                 <div class="control">
-                                    <input id="editServings${id}" class="input is-small" type="number" min="1" value="4" required>
+                                    <input id="editServings${recipe.id}" class="input is-small" type="number" min="1"required value="${recipe.servings}">
                                 </div>
-                                <label class="label" for="editServings${id}">personnes</label>
+                                <label class="label" for="editServings${recipe.id}">personnes</label>
                             </div>
                             <div class="field">
-                                <label class="label" for="editDesc${id}">Description (200 caractères max)</label>
+                                <label class="label" for="editDesc${recipe.id}">Description (200 caractères max)</label>
                                 <div class="control">
-                                    <textarea id="editDesc${id}" class="textarea" placeholder="Description de la recette" maxlength="200"></textarea>
+                                    <textarea id="editDesc${recipe.id}" class="textarea" placeholder="Description de la recette" maxlength="200">${recipe.description}</textarea>
                                 </div>
                             </div>
                             <div class="field">
-                                <label class="label" for="editIngredients${id}">Ingrédients (1 par ligne)</label>
+                                <label class="label" for="editIngredients${recipe.id}">Ingrédients (1 par ligne)</label>
                                 <div class="control">
-                                    <textarea id="editIngredients${id}" class="textarea" placeholder="Oignon, 250 g&#10;Boeuf, 1 kg&#10;Sel&#10;Poivre"></textarea>
+                                    <textarea id="editIngredients${recipe.id}" class="textarea" placeholder="Oignon, 250 g&#10;Boeuf, 1 kg&#10;Sel&#10;Poivre">${ingredients}</textarea>
                                 </div>
                             </div>
                         </section>
                         <footer class="modal-card-foot is-justify-content-end">
                             <button class="button" aria-label="close">Annuler</button>
-                            <button id="editSubmit${id}" class="button is-success">Valider</button>
+                            <button id="editSubmit${recipe.id}" class="button is-success">Valider</button>
                         </footer>
                     </form>
                 </div>
@@ -99,13 +92,14 @@ import bulmaModal from "./bulmaModal.js";
                     </section>
                     <footer class="modal-card-foot is-justify-content-end">
                         <button class="button" aria-label="close">Annuler</button>
-                        <button class="button is-danger" aria-label="delete" data-recipe-id="${id}">Supprimer</button>
+                        <button id="deleteSubmit${id}" class="button is-danger">Supprimer</button>
                     </footer>
                 </div>
             </div>`;
     }
 
     function recipeCardTemplate(recipe) {
+        let servings = `<span class="has-text-weight-bold">${recipe.servings}</span> personne${recipe.servings > 1 ? "s" : ""}`;
         return `
             <header class="card-header is-align-items-center is-clipped">
                 <p class="card-header-title">
@@ -131,7 +125,7 @@ import bulmaModal from "./bulmaModal.js";
                 <div class="media is-justify-content-end mb-2">
                     <div class="media-right">
                         <p class="subtitle is-size-7 has-text-grey-light">
-                            Pour ${getServingsInfo(recipe.servings)}
+                            Pour ${servings}
                         </p>
                     </div>
                 </div>
@@ -153,7 +147,7 @@ import bulmaModal from "./bulmaModal.js";
                     </ul>
                 </div>
             </div>
-            ${editModalTemplate(recipe.id)}
+            ${editModalTemplate(recipe)}
             ${deleteModalTemplate(recipe.id)}
         `;
     }
@@ -166,19 +160,6 @@ import bulmaModal from "./bulmaModal.js";
         column.appendChild(card);
         column.classList.add("column", "is-one-third-tablet", "is-one-quarter-desktop", "is-one-fifth-widescreen", "is-flex");
         return column;
-    }
-
-    function displayRecipes(recipes) {
-        let recipesContainer = _id("recipes");
-        recipesContainer.innerHTML = "";
-        for (let recipe of recipes) {
-            recipesContainer.appendChild(newRecipeCard(recipe));
-        }
-        for (let el of _qsa("[id^='deleteModal'] button[aria-label='delete']")) {
-            el.addEventListener("click", () => deleteRecipe(el.dataset.recipeId));
-        }
-        bulmaModal();
-        bulmaCollapsible.attach('.is-collapsible');
     }
 
     function newRecipe(name, link, servings, description, ingredientsList) {
@@ -200,7 +181,28 @@ import bulmaModal from "./bulmaModal.js";
         };
     }
 
-    function addRecipe() {
+    function displayRecipes(recipes) {
+        let recipesContainer = _id("recipes");
+        recipesContainer.innerHTML = "";
+        for (let recipe of recipes) {
+            recipesContainer.appendChild(newRecipeCard(recipe));
+            let id = recipe.id;
+            _id(`deleteSubmit${id}`).addEventListener("click", () => deleteRecipe(id));
+            _id(`editSubmit${id}`).addEventListener("click", (evt) => {
+                evt.preventDefault();
+                editRecipe(id);
+            });
+        }
+        bulmaModal();
+        bulmaCollapsible.attach('.is-collapsible');
+    }
+
+    async function getRecipes() {
+        return fetch(FETCH_URL)
+            .then((res) => res.json());
+    }
+
+    async function addRecipe() {
         let name = _id("createName").value;
         let link = _id("createLink").value;
         let servings = _id("createServings").value;
@@ -215,21 +217,47 @@ import bulmaModal from "./bulmaModal.js";
             body: JSON.stringify(recipe)
         })
         .then((res) => res.json())
-        .then((recipe) => recipes.push(recipe))
         .then(() => {
+            recipes.push(recipe);
             _id("createForm").reset();
             displayRecipes(recipes);
         })
         .catch(console.error);
     }
 
-    function deleteRecipe(id) {
+    async function editRecipe(id) {
+        let name = _id(`editName${id}`).value;
+        let link = _id(`editLink${id}`).value;
+        let servings = _id(`editServings${id}`).value;
+        let desc = _id(`editDesc${id}`).value;
+        let ingredients = _id(`editIngredients${id}`).value;
+        let recipe = newRecipe(name, link, servings, desc, ingredients);
+        fetch(`${FETCH_URL}/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(recipe)
+        })
+        .then((res) => res.json())
+        .then((updatedRecipe) => {
+            let idx = recipes.findIndex((recipe) =>
+                recipe.id === id
+            );
+            recipes[idx] = updatedRecipe;
+            displayRecipes(recipes);
+        })
+        .catch(console.error);
+    }
+
+    async function deleteRecipe(id) {
         fetch(`${FETCH_URL}/${id}`, {
             method: "DELETE",
         })
-        .then((res) => res.json())
         .then(() => {
-            recipes = recipes.filter((recipe) => recipe.id.toString() !== id);
+            recipes = recipes.filter((recipe) =>
+                recipe.id !== id
+            );
             displayRecipes(recipes);
         })
         .catch(console.error);
