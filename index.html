@@ -52,45 +52,47 @@
                     <p class="modal-card-title">Nouvelle recette</p>
                     <button class="delete" aria-label="close"></button>
                 </header>
-                <form id="createForm">
+                <div class="is-scroll">
                     <section class="modal-card-body">
-                        <div class="field">
-                            <label class="label" for="createName">Nom</label>
-                            <div class="control">
-                                <input id="createName" class="input" type="text" placeholder="Nom de la recette" required>
+                        <form id="createForm">
+                            <div class="field">
+                                <label class="label" for="createName">Nom</label>
+                                <div class="control">
+                                    <input id="createName" name="name" class="input" type="text" placeholder="Nom de la recette" required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="field">
-                            <label class="label" for="createLink">Image</label>
-                            <div class="control">
-                                <input id="createLink" class="input" type="text" placeholder="Lien vers l'image">
+                            <div class="field">
+                                <label class="label" for="createLink">Image</label>
+                                <div class="control">
+                                    <input id="createLink" name="link" class="input" type="text" placeholder="Lien vers l'image">
+                                </div>
                             </div>
-                        </div>
-                        <div class="field is-horizontal has-addons field-gap is-align-items-center mt-5">
-                            <label class="label mb-0" for="createServings">Pour</label>
-                            <div class="control">
-                                <input id="createServings" class="input is-small" type="number" min="1" value="4" required>
+                            <div class="field is-horizontal has-addons field-gap is-align-items-center mt-5">
+                                <label class="label mb-0" for="createServings">Pour</label>
+                                <div class="control">
+                                    <input id="createServings" name="servings" class="input is-small" type="number" min="1" value="4" required>
+                                </div>
+                                <label class="label" for="createServings">personnes</label>
                             </div>
-                            <label class="label" for="createServings">personnes</label>
-                        </div>
-                        <div class="field">
-                            <label class="label" for="createDesc">Description (200 caractères max)</label>
-                            <div class="control">
-                                <textarea id="createDesc" class="textarea" placeholder="Description de la recette" maxlength="200"></textarea>
+                            <div class="field">
+                                <label class="label" for="createDesc">Description (200 caractères max)</label>
+                                <div class="control">
+                                    <textarea id="createDesc" name="description" class="textarea" placeholder="Description de la recette" maxlength="200"></textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="field">
-                            <label class="label" for="createIngredients">Ingrédients (1 par ligne)</label>
-                            <div class="control">
-                                <textarea id="createIngredients" class="textarea" placeholder="Oignon, 250 g&#10;Boeuf, 1 kg&#10;Sel&#10;Poivre"></textarea>
+                            <div class="field">
+                                <label class="label" for="createIngredients">Ingrédients (1 par ligne)</label>
+                                <div class="control">
+                                    <textarea id="createIngredients" name="ingredients" class="textarea" placeholder="Oignon, 250 g&#10;Boeuf, 1 kg&#10;Sel&#10;Poivre"></textarea>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </section>
                     <footer class="modal-card-foot is-justify-content-end">
                         <button class="button" aria-label="close">Annuler</button>
                         <button id="createSubmit" class="button is-success">Valider</button>
                     </footer>
-                </form>
+                </div>
             </div>
         </div>
 

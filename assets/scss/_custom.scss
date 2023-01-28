@@ -1,7 +1,3 @@
-.image.cover img {
-    object-fit: cover;
-}
-
 .card-header {
     max-height: 42px;
 }
@@ -17,12 +13,16 @@
     }
 }
 
+.is-scroll {
+    overflow: scroll;
+}
+
+.image.cover img {
+    object-fit: cover;
+}
+
 .modal-content, .modal-card {
     width: 95%;
-
-    form {
-        overflow: scroll;
-    }
 }
 
 .field.has-addons.field-gap {

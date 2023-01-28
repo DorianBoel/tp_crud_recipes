@@ -10318,10 +10318,6 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   padding: 1.25em 1.5em;
 }
 
-.image.cover img {
-  object-fit: cover;
-}
-
 .card-header {
   max-height: 42px;
 }
@@ -10333,11 +10329,16 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   list-style: square;
 }
 
+.is-scroll {
+  overflow: scroll;
+}
+
+.image.cover img {
+  object-fit: cover;
+}
+
 .modal-content, .modal-card {
   width: 95%;
-}
-.modal-content form, .modal-card form {
-  overflow: scroll;
 }
 
 .field.has-addons.field-gap {
