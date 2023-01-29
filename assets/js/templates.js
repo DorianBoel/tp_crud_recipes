@@ -64,7 +64,7 @@ function editModalTemplate(recipe) {
                     </section>
                     <footer class="modal-card-foot is-justify-content-end">
                         <button class="button" aria-label="close">Annuler</button>
-                        <button id="editSubmit${recipe.id}" class="button is-success">Valider</button>
+                        <button id="editSubmit${recipe.id}" class="button is-success has-background-success-dark">Valider</button>
                     </footer>
                 </div>
             </div>
@@ -151,7 +151,7 @@ function newRecipeCard(recipe) {
     card.innerHTML = recipeCardTemplate(recipe);
     card.classList.add("card", "is-flex", "is-flex-direction-column", "is-flex-grow-1");
     column.appendChild(card);
-    column.classList.add("column", "is-one-third-tablet", "is-one-quarter-desktop", "is-one-fifth-widescreen", "is-flex");
+    column.classList.add("column", "is-full-mobile", "is-one-third-tablet", "is-one-quarter-desktop", "is-one-fifth-widescreen", "is-flex");
     return column;
 }
 

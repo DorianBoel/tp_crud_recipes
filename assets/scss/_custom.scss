@@ -1,3 +1,16 @@
+html, body {
+    height: auto;
+    min-height: 100vh;
+}
+
+input, textarea {
+    @extend .has-background-grey-lighter;
+
+    &::placeholder {
+        @extend .has-text-grey;
+    }
+}
+
 .card-header {
     max-height: 42px;
 }
@@ -17,12 +30,12 @@
     overflow: scroll;
 }
 
-.image.cover img {
-    object-fit: cover;
+span.loader {
+    border-color: transparent transparent #8e8c84 #8e8c84;
 }
 
-.modal-content, .modal-card {
-    width: 95%;
+.image.cover img {
+    object-fit: cover;
 }
 
 .field.has-addons.field-gap {
@@ -50,5 +63,11 @@ a[data-action="collapse"] {
 
     &:not(.is-active) {
         @include collapse-icon();
+    }
+}
+
+@media screen and (max-width: 768px) {
+    div.modal-card {
+        width: 95%;
     }
 }

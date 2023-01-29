@@ -13,11 +13,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
 </head>
 
-<body>
+<body class="has-background-grey-lighter">
     <header class="has-background-dark py-4 mb-4">
         <h1 class="is-size-1 is-size-3-mobile has-text-weight-semibold has-text-centered has-text-white">&#127869;&#65039; Liste de recettes &#127869;&#65039; </h1>
     </header>
-    <div class="container is-fluid mt-3">
+    <div class="container is-fluid mt-3 pb-5">
 
         <!-- Loader -->
         <div id="loading" class="is-flex is-justify-content-center is-align-items-center">
@@ -37,7 +37,7 @@
         <!--Content-->
         <div id="loaded" class="is-hidden">
             <div class="is-flex is-justify-content-end">
-                <button class="button is-success mb-4 js-modal-trigger" data-target="createModal">
+                <button class="button is-success has-background-success-dark mb-4 js-modal-trigger" data-target="createModal">
                     Ajouter&nbsp;<i class="fas fa-plus"></i>
                 </button>
             </div>
@@ -90,7 +90,7 @@
                     </section>
                     <footer class="modal-card-foot is-justify-content-end">
                         <button class="button" aria-label="close">Annuler</button>
-                        <button id="createSubmit" class="button is-success">Valider</button>
+                        <button id="createSubmit" class="button is-success has-background-success-dark">Valider</button>
                     </footer>
                 </div>
             </div>

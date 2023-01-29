@@ -7977,7 +7977,7 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   background-color: hsl(0deg, 0%, 29%) !important;
 }
 
-.has-text-grey {
+.has-text-grey, input::placeholder, textarea::placeholder {
   color: hsl(0deg, 0%, 48%) !important;
 }
 
@@ -7997,7 +7997,7 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   color: hsl(0deg, 0%, 86%) !important;
 }
 
-.has-background-grey-lighter {
+.has-background-grey-lighter, input, textarea {
   background-color: hsl(0deg, 0%, 86%) !important;
 }
 
@@ -10318,6 +10318,11 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   padding: 1.25em 1.5em;
 }
 
+html, body {
+  height: auto;
+  min-height: 100vh;
+}
+
 .card-header {
   max-height: 42px;
 }
@@ -10333,12 +10338,12 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   overflow: scroll;
 }
 
-.image.cover img {
-  object-fit: cover;
+span.loader {
+  border-color: transparent transparent #8e8c84 #8e8c84;
 }
 
-.modal-content, .modal-card {
-  width: 95%;
+.image.cover img {
+  object-fit: cover;
 }
 
 .field.has-addons.field-gap {
@@ -10358,4 +10363,10 @@ a[data-action=collapse]:not(.is-active) span.icon {
 }
 a[data-action=collapse]:not(.is-active) span.icon i {
   margin-top: 0.15rem;
+}
+
+@media screen and (max-width: 768px) {
+  div.modal-card {
+    width: 95%;
+  }
 }/*# sourceMappingURL=main.css.map */

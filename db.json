@@ -26,7 +26,7 @@
       "name": "Poulet au gingembre",
       "servings": 4,
       "description": "Poulet au gingembre avec du riz et gambas.",
-      "link": "https://www.toutlevin.com/img/3cfcc4d33781a6cfc5763597bbfd9c8b004740003000-1920.jpg",
+      "link": " https://www.jocooks.com/wp-content/uploads/2015/08/ginger-chicken-1-3-1.jpg ",
       "ingredients": [
         {
           "name": "Poulet",
@@ -41,6 +41,51 @@
           "quantity": "1kg"
         }
       ]
+    },
+    {
+      "name": "Gyūdon",
+      "link": " https://thewoksoflife.com/wp-content/uploads/2016/02/gyudon-11.jpg",
+      "servings": "2",
+      "description": "Un bol de riz recouvert de fines tranches de bœuf mijotées avec des oignons.",
+      "ingredients": [
+        {
+          "name": "Sucre",
+          "quantity": "1 c.à.s"
+        },
+        {
+          "name": "Sauce soja",
+          "quantity": "2 c.à.s"
+        },
+        {
+          "name": "Oignon",
+          "quantity": "1/2"
+        },
+        {
+          "name": "Boeuf en lamelles",
+          "quantity": "250 g"
+        },
+        {
+          "name": "Saké",
+          "quantity": "1 c.à.s"
+        },
+        {
+          "name": "Mirin",
+          "quantity": "1 c.à.s"
+        },
+        {
+          "name": "Dashi",
+          "quantity": "5 g"
+        },
+        {
+          "name": "Riz rond",
+          "quantity": "300 g"
+        },
+        {
+          "name": "Oeufs",
+          "quantity": "2"
+        }
+      ],
+      "id": 3
     }
   ]
 }
